@@ -23,6 +23,11 @@ mongoose
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 app.use('/api', require('./routes/app.routes'));
+
+// test route
+app.get('/', (req, res) => {
+	res.send('Hello World!');
+});
 app.use(errors.errorHandler);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
