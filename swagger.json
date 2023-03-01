@@ -1,0 +1,207 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "1.0.0",
+		"title": "Shopping App - CRUD API",
+		"description": "My Shopping App Project Application Api",
+		"license": {
+			"name": "MIT",
+			"url": "https://opensource.org/licenses/MIT"
+		}
+	},
+	"host": "localhost:4000",
+	"basePath": "/",
+	"tags": [
+		{
+			"name": "Products",
+			"description": "API to manage products in the system"
+		}
+	],
+	"schemes": ["http"],
+	"consumes": ["application/json"],
+	"produces": ["application/json"],
+	"paths": {
+		"/api/products": {
+			"get": {
+				"tags": ["Products"],
+				"summary": "Get all products",
+				"parameters": [
+					{
+						"name": "productName",
+						"in": "query",
+						"description": "Search by Product name",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/ServiceResponse"
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": ["Products"],
+				"summary": "Create a new product",
+				"parameters": [
+					{
+						"name": "productName",
+						"in": "formData",
+						"description": "Product Name",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "productDescription",
+						"in": "formData",
+						"description": "Product Description",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "productPrice",
+						"in": "formData",
+						"description": "Product Price",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"name": "productImage",
+						"in": "formData",
+						"description": "Product Image",
+						"required": true,
+						"type": "file"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/ServiceResponse"
+						}
+					}
+				}
+			}
+		},
+		"/api/products/{productId}": {
+			"parameters": [
+				{
+					"name": "productId",
+					"in": "path",
+					"description": "Product Id",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"get": {
+				"tags": ["Products"],
+				"summary": "Get a product Details",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/ServiceResponse"
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Products"],
+				"summary": "Delete a product",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/ServiceResponse"
+						}
+					}
+				}
+			},
+
+			"put": {
+				"tags": ["Products"],
+				"summary": "Update a product",
+				"parameters": [
+					{
+						"name": "productName",
+						"in": "formData",
+						"description": "Product Name",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "productDescription",
+						"in": "formData",
+						"description": "Product Description",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "productPrice",
+						"in": "formData",
+						"description": "Product Price",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"name": "productImage",
+						"in": "formData",
+						"description": "Product Image",
+						"required": true,
+						"type": "file"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/ServiceResponse"
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Products": {
+			"required": ["productName", "_id", "productPrice"],
+			"properties": {
+				"_id": {
+					"type": "integer",
+					"unique": true
+				},
+				"productName": {
+					"type": "string"
+				},
+				"productPrice": {
+					"type": "number"
+				},
+				"productDescription": {
+					"type": "string"
+				},
+				"productImage": {
+					"type": "string"
+				}
+			}
+		},
+		"ServiceResponse": {
+			"properties": {
+				"status": {
+					"type": "string"
+				},
+				"message": {
+					"type": "string"
+				},
+				"data": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Products"
+					}
+				}
+			}
+		}
+	}
+}
